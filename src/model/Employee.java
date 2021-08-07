@@ -15,6 +15,16 @@ public class Employee implements EmployeeInterface, Serializable {
     public Employee() {
     }
 
+    public Employee(String name, String id, int age, String address, int phoneNumber, String useName, int password) {
+        this.name = name;
+        this.id = id;
+        this.age = age;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.useName = useName;
+        this.password = password;
+    }
+
     public Employee(String name, String id, int age, String address, int phoneNumber,
                     String status, String useName, int password) {
         this.name = name;
@@ -93,20 +103,31 @@ public class Employee implements EmployeeInterface, Serializable {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "name: '" + name + '\'' +
-                ", id: '" + id + '\'' +
-                ", age: " + age +
-                ", address: '" + address + '\'' +
-                ", phoneNumber: " + phoneNumber +
-                ", status: " + status +
-                ", useName: '" + useName + '\'' +
-                ", password: " + password +
-                '}';
+       if(status == null){
+           return "Employee{" +
+                   "name: '" + name + '\'' +
+                   ", id: '" + id + '\'' +
+                   ", age: " + age +
+                   ", address: '" + address + '\'' +
+                   ", phoneNumber: " + phoneNumber +
+                   ", status: Chua nhan viec " +
+                   ", useName: '" + useName + '\'' +
+                   ", password: " + password +
+                   '}';
+       }else  return "Employee{" +
+               "name: '" + name + '\'' +
+               ", id: '" + id + '\'' +
+               ", age: " + age +
+               ", address: '" + address + '\'' +
+               ", phoneNumber: " + phoneNumber +
+               ", status: " + status +
+               ", useName: '" + useName + '\'' +
+               ", password: " + password +
+               '}';
     }
 
     @Override
-    public int payroll() {
+    public int calculationSalary() {
         return 0;
     }
 }

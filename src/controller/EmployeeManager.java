@@ -41,18 +41,7 @@ public class EmployeeManager {
         FileEmployee.writeFile(employeeList,"employee.txt");
     }
 
-    public int getIndexOfId(String id) {
-        int index = -1;
-        for (int i = 0; i < employeeList.size(); i++) {
-            if (employeeList.get(i).getId().equals(id)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
-    public void editEmployee(String id,Employee employee){
+    public void edit(String id,Employee employee){
         int index = getIndexOfId(id);
         employeeList.set(index,employee);
         FileEmployee.writeFile(employeeList,"employee.txt");
@@ -72,6 +61,49 @@ public class EmployeeManager {
             }
         }
         return employees;
+    }
+
+    public int calculationSalary(String id){
+        int index = getIndexOfId(id);
+        Employee employee = employeeList.get(index);
+        if(employee instanceof FullTime){
+           return employee.calculationSalary();
+        }else return employee.calculationSalary();
+    }
+
+    public int getIndexOfUseName(String useName){
+        int index=-1;
+        for (int i = 0; i < employeeList.size(); i++) {
+            Employee employee = employeeList.get(i);
+            if(employee.getUseName().equals(useName)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int getIndexOfUseNamePassword(String useName, int password){
+        int index = -1;
+        for (int i = 0; i < employeeList.size(); i++) {
+            Employee employee = employeeList.get(i);
+            if(employee.getUseName().equals(useName) && employee.getPassword()==password){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int getIndexOfId(String id) {
+        int index = -1;
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getId().equals(id)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public List<Employee> EmployDoing() {

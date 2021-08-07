@@ -7,15 +7,13 @@ import model.PartTime;
 import stogera.FileEmployee;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class EmployeeView {
     private List<Employee> employeeList = FileEmployee.readFile("employee.txt");
     private EmployeeManager binh = new EmployeeManager("Binh", employeeList);
     private Validate validate = new Validate();
 
-
-    public  Employee newFullTime() {
+    public Employee newFullTime() {
         System.out.println("Nhap name :  ");
         String name = validate.checkEmpty();
         String id = checkInputId();
@@ -27,8 +25,7 @@ public class EmployeeView {
         int phoneNumber = validate.inputInteger();
         System.out.println("Nhap status : ");
         String status = validate.checkEmpty();
-        System.out.println("Nhap useName : ");
-        String useName = validate.checkEmpty();
+        String useName = checkInputUseName();
         System.out.println("Nhap password : ");
         int password = validate.inputInteger();
         System.out.println("Nhap salary : ");
@@ -43,8 +40,8 @@ public class EmployeeView {
         return newFullTime;
     }
 
-    public  Employee newPartTime() {
-        System.out.println("Nhap name :  ");
+    public Employee newPartTime() {
+        System.out.println("Nhap name : ");
         String name = validate.checkEmpty();
         String id = checkInputId();
         System.out.println("Nhap age : ");
@@ -55,8 +52,7 @@ public class EmployeeView {
         int phoneNumber = validate.inputInteger();
         System.out.println("Nhap status : ");
         String status = validate.checkEmpty();
-        System.out.println("Nhap useName : ");
-        String useName = validate.checkEmpty();
+        String useName = checkInputUseName();
         System.out.println("Nhap password : ");
         int password = validate.inputInteger();
         System.out.println("Nhap salaryTime : ");
@@ -69,7 +65,7 @@ public class EmployeeView {
         return newPartTime;
     }
 
-    public  void addEmployee() {
+    public void addEmployee() {
         System.out.println("Nhap so nhan vien muon them vao : ");
         int number = validate.inputInteger();
         int i = 0;
@@ -89,78 +85,98 @@ public class EmployeeView {
             }
             i++;
         }
-
     }
 
-    public  void editEmployee() {
+    public void editEmployee() {
+        List<Employee> employeeList = binh.getEmployeeList();
         System.out.println("Nhap id cua nhan vien can chinh sua : ");
-        String id = checkId();
+        String id = checkHaveId();
         int index = binh.getIndexOfId(id);
-        List<Employee> employees = binh.getEmployeeList();
-        if (employees.get(index) instanceof FullTime) {
-            employees.set(index, newFullTime());
-        } else employees.set(index, newPartTime());
+        if (employeeList.get(index).getStatus() == null) {
+            System.out.println("An 1 de sua thanh nhan vien FullTime :");
+            System.out.println("An 2 de sua thanh nhan vien PartTime :");
+            int choice = validate.inputInteger();
+            switch (choice) {
+                case 1:
+                    System.out.println("Nhap cac thong tin : ");
+                    binh.edit(id,newFullTime());
+                    break;
+                case 2:
+                    System.out.println("Nhap cac thong tin : ");
+                    binh.edit(id,newPartTime());
+                    break;
+            }
+        } else if (employeeList.get(index) instanceof FullTime) {
+            binh.edit(id, newFullTime());
+        } else binh.edit(id, newPartTime());
     }
 
-    public  void deleteEmployee() {
+    public void deleteEmployee() {
         System.out.println(" Nhap id nhan vien muon xoa : ");
-        String id = checkId();
+        String id = checkHaveId();
         binh.delete(id);
     }
 
-    public  void showEmployee() {
+    public void showEmployee() {
         for (Employee o : binh.getEmployeeList()
         ) {
             System.out.println(o);
         }
     }
 
-    public  void findByName() {
+    public void findByName() {
         System.out.println("Nhap ten can tim kiem : ");
-        String name = checkName();
+        String name = checkHaveName();
         for (Employee o : binh.findByName(name)
         ) {
             System.out.println(o);
         }
     }
 
-    public  void showEmployeeDoing() {
+    public void calculationSalaryEmployee() {
+        System.out.println("Nhap id cua nhan vien muon tinh luong : ");
+        String id = checkHaveId();
+        int salary = binh.calculationSalary(id);
+        System.out.println("Luong cua nhan vien co id : " + id + "la = " + salary);
+    }
+
+    public void showEmployeeDoing() {
         for (Employee o : binh.EmployDoing()
         ) {
             System.out.println(o);
         }
     }
 
-    public  void showEmployeeNotDoing() {
+    public void showEmployeeNotDoing() {
         for (Employee o : binh.EmployNotDoing()
         ) {
             System.out.println(o);
         }
     }
 
-    public  void showFullTime(){
+    public void showFullTime() {
         for (Employee o : binh.classifyFullTime()
         ) {
             System.out.println(o);
         }
     }
 
-    public  void showPartTime(){
+    public void showPartTime() {
         for (Employee o : binh.classifyPartTime()
         ) {
             System.out.println(o);
         }
     }
 
-    public  void updateStatus() {
+    public void updateStatus() {
         System.out.println("Nhap id cua nhan vien muon cap nhat trang thai : ");
-        String id = checkId();
+        String id = checkHaveId();
         binh.updateStatus(id);
     }
 
-    public  void checkStatus() {
+    public void checkStatus() {
         System.out.println("Nhap ten can kiem tra trang thai : ");
-        String name = checkName();
+        String name = checkHaveName();
         List<Employee> employeeList = binh.findByName(name);
         for (int i = 0; i < employeeList.size(); i++) {
             System.out.println("Nhan vien : " + name + ", " +
@@ -169,7 +185,7 @@ public class EmployeeView {
         }
     }
 
-    public  String checkId() {
+    public String checkHaveId() {
         while (true) {
             System.out.println("Nhap id");
             String id = validate.checkEmpty();
@@ -179,7 +195,7 @@ public class EmployeeView {
         }
     }
 
-    public  String checkName() {
+    public String checkHaveName() {
         while (true) {
             System.out.println("Nhap ten : ");
             String name = validate.checkEmpty();
@@ -191,7 +207,7 @@ public class EmployeeView {
         }
     }
 
-    public  String checkInputId() {
+    public String checkInputId() {
         while (true) {
             System.out.println(" nhap id : ");
             String id = validate.checkEmpty();
@@ -203,32 +219,107 @@ public class EmployeeView {
         }
     }
 
-    public  void choiceShow(){
-        System.out.println(" An 1 hien thi danh sach toan bo cac nhan vien.\n An 2 hien thi nhan vien FullTime." +
-                "\n An 3 hien thi danh sach nhan vien PartTime. \n An 4 hien thi danh sach cac nhan vien dang lam." +
-                "\n An 5 hien thi cac nhan vien da nghi");
-        int choice = validate.inputInteger();
-        switch (choice){
-            case 1 :
-                System.out.println("Danh sach cac nhan vien :");
-                showEmployee();
-                break;
-            case 2 :
-                System.out.println("Danh sach cac nhan vien FullTime :");
-                showFullTime();
-                break;
-            case 3 :
-                System.out.println("Danh sach cac nhan vien PartTime :");
-                showPartTime();
-                break;
-            case 4 :
-                System.out.println("Danh sach nhan vien dang lam :");
-                showEmployeeDoing();
-                break;
-            case 5 :
-                System.out.println("Danh sach nhan vien da nghi :");
-                showEmployeeNotDoing();
-                break;
+    public String checkInputUseName() {
+        while (true) {
+            System.out.println("Nhap UseName");
+            String useName = validate.checkEmpty();
+            if (binh.getIndexOfUseName(useName) == -1) {
+                return useName;
+            } else {
+                System.out.println("UseName da ton tai, moi nhap lai.");
+            }
         }
     }
+
+    public boolean checkLogin(String useName, int password) {
+        if (binh.getIndexOfUseNamePassword(useName, password) != -1) return true;
+        else return false;
+    }
+
+    public void choiceShow() {
+        int choice = -1;
+        while (choice != 0) {
+            System.out.println(" An 1 hien thi danh sach toan bo cac nhan vien. \n An 2 de xem luong." +
+                    "\n An 3 hien thi nhan vien FullTime. \n An 4 hien thi danh sach nhan vien PartTime." +
+                    " \n An 5 hien thi danh sach cac nhan vien dang lam. \n An 6 hien thi cac nhan vien da nghi." +
+                    "\n An 0 de quay lai.");
+
+            choice = validate.inputInteger();
+            switch (choice) {
+                case 1:
+                    System.out.println("Danh sach cac nhan vien :");
+                    showEmployee();
+                    break;
+                case 2:
+                    calculationSalaryEmployee();
+                    break;
+                case 3:
+                    System.out.println("Danh sach cac nhan vien FullTime :");
+                    showFullTime();
+                    break;
+                case 4:
+                    System.out.println("Danh sach cac nhan vien PartTime :");
+                    showPartTime();
+                    break;
+                case 5:
+                    System.out.println("Danh sach nhan vien dang lam :");
+                    showEmployeeDoing();
+                    break;
+                case 6:
+                    System.out.println("Danh sach nhan vien da nghi :");
+                    showEmployeeNotDoing();
+                    break;
+            }
+        }
+    }
+
+    public void showEmployee(String useName, int password) {
+        int index = binh.getIndexOfUseNamePassword(useName, password);
+        if (index != -1) {
+            Employee employee = binh.getEmployeeList().get(index);
+            System.out.println(employee + "\n Luong thu nhap : " + employee.calculationSalary());
+            if (employee.getStatus() == null) {
+                System.out.println("Ban dang la thanh vien moi, hay dang ky lam FullTime" +
+                        " hoac PartTime voi quan ly \n");
+            }
+        }
+    }
+
+    public void employeeMenu(String useName, int password) {
+        int choice = -1;
+        while (choice != 0) {
+            System.out.println("An 1 de xem thong tin cua ban. \nAn 0 de thoat. ");
+            choice = validate.inputInteger();
+            if (choice == 1) {
+                showEmployee(useName, password);
+            }
+        }
+    }
+
+    public Employee newMember() {
+        System.out.println("Nhap name :  ");
+        String name = validate.checkEmpty();
+        String id = checkInputId();
+        System.out.println("Nhap age : ");
+        int age = validate.inputInteger();
+        System.out.println("Nhap  address : ");
+        String address = validate.checkEmpty();
+        System.out.println("Nhap Phone Number : ");
+        int phoneNumber = validate.inputInteger();
+        String status = null;
+        String useName = checkInputUseName();
+        System.out.println("Nhap password : ");
+        int password = validate.inputInteger();
+
+        Employee member = new Employee(name, id, age, address, phoneNumber, status,
+                useName, password);
+        return member;
+    }
+
+    public void addNewMember() {
+
+
+        binh.add(newMember());
+    }
+
 }

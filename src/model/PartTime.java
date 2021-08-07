@@ -44,7 +44,7 @@ public class PartTime extends Employee {
     }
 
     @Override
-    public int payroll() {
+    public int calculationSalary() {
         return salaryTime*wordTime;
     }
 }

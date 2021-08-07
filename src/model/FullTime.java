@@ -56,7 +56,7 @@ public class FullTime extends Employee {
     }
 
     @Override
-    public int payroll() {
+    public int calculationSalary() {
         return salary+bonus-fine;
     }
 }
