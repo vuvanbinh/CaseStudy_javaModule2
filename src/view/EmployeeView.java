@@ -321,5 +321,4 @@ public class EmployeeView {
 
         binh.add(newMember());
     }
-
 }

@@ -12,24 +12,30 @@ public class ManagerAccountView {
     private ManagerAccountController managerAccountController = new ManagerAccountController(managerAccountList);
     private Validate validate = new Validate();
 
-    public Employee getEmployee(String useName, int password){
-        Employee employee = new Employee() ;
+    public int getIndexOfEmployee(String useName, int password) {
+        int index = -1;
         for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee1 = employeeList.get(i);
-            if(employee1.getUseName().equals(useName)&&employee1.getPassword()==password){
-                 employee = employee1;
-                 break;
+            Employee employee = employeeList.get(i);
+            if (employee.getUseName().equals(useName) && employee.getPassword() == password) {
+                index = i;
+                break;
             }
         }
-        return employee;
+        return index;
     }
 
     public Employee newManagerAccount() {
-        String useName = checkInputUseName();
-        System.out.println("Nhap password : ");
-        int password = validate.inputInteger();
-        Employee managerAccount = getEmployee(useName,password);
-        return managerAccount;
+        int index = 0;
+        while (true) {
+            String useName = checkInputUseName();
+            System.out.println("Nhap password : ");
+            int password = validate.inputInteger();
+            index = getIndexOfEmployee(useName, password);
+            if (index != -1) {
+             break;
+            } else System.out.println("Nhan vien khong ton tai hoac nhap vao sai useName hoac password, moi nhap lai chinh xac.");
+        }
+        return employeeList.get(index);
     }
 
     public void addManagerAccount() {
@@ -40,15 +46,6 @@ public class ManagerAccountView {
         System.out.println("Nhap useName tai khoan muon xoa ");
         String useName = checkUseName();
         managerAccountController.delete(useName);
-    }
-
-    public String checkInputId() {
-        while (true) {
-            System.out.println("Nhap id :");
-            String id = validate.checkEmpty();
-            if (managerAccountController.getIndexOfId(id) == -1) return id;
-            else System.out.println("Id da ton tai moi nhap lai. ");
-        }
     }
 
     public String checkInputUseName() {
@@ -108,7 +105,7 @@ public class ManagerAccountView {
             choice = validate.inputInteger();
             switch (choice) {
                 case 1:
-                    System.out.println("Nhap thong tin tai khoan :");
+                    System.out.println("Nhap UseName va Password cua nhan vien muon them vao lam quan ly :");
                     addManagerAccount();
                     System.out.println("Them tai khoan dang nhap thanh cong");
                     break;

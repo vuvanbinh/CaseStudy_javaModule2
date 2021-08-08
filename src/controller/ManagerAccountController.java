@@ -34,17 +34,6 @@ public class ManagerAccountController {
         return index;
     }
 
-    public int getIndexOfId(String id){
-        int index = -1;
-        for (int i = 0; i < managerAccountList.size(); i++) {
-            if(managerAccountList.get(i).getId().equals(id)){
-                index=i;
-                break;
-            }
-        }
-        return index;
-    }
-
     public List<Employee> getManagerAccountList() {
         return managerAccountList;
     }

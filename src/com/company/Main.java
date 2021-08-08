@@ -11,8 +11,21 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        ManagerAccountView m = new ManagerAccountView();
-        System.out.println( m.newManagerAccount());
+//        ManagerAccountView m = new ManagerAccountView();
+//        System.out.println( m.newManagerAccount());
+
+        Scanner scanner = new Scanner(System.in);
+        int x = 0;
+         while (true){
+             System.out.println("Nhap x");
+              x = scanner.nextInt();
+             if (x!=-1){
+                 System.out.println("ok");
+                 break;
+             }else System.out.println("nhap lai x");
+
+         }
+        System.out.println("-------"+x);
 
 
 //        binh.add(new FullTime("name1", "id01", 18, "HN", 01,
