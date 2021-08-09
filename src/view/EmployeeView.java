@@ -140,29 +140,15 @@ public class EmployeeView {
         System.out.println("Luong cua nhan vien co id : " + id + "la = " + salary);
     }
 
-    public void showEmployeeDoing() {
-        for (Employee o : binh.EmployDoing()
+    public void showEmployeeStatus(String status) {
+        for (Employee o : binh.getEmployeeStatus(status)
         ) {
             System.out.println(o);
         }
     }
 
-    public void showEmployeeNotDoing() {
-        for (Employee o : binh.EmployNotDoing()
-        ) {
-            System.out.println(o);
-        }
-    }
-
-    public void showFullTime() {
-        for (Employee o : binh.classifyFullTime()
-        ) {
-            System.out.println(o);
-        }
-    }
-
-    public void showPartTime() {
-        for (Employee o : binh.classifyPartTime()
+    public void showClassifyEmployee(String classifyEmployee) {
+        for (Employee o : binh.getClassifyEmployee(classifyEmployee)
         ) {
             System.out.println(o);
         }
@@ -255,19 +241,23 @@ public class EmployeeView {
                     break;
                 case 3:
                     System.out.println("Danh sach cac nhan vien FullTime :");
-                    showFullTime();
+                    String classifyFullTime = "fullTime";
+                    showClassifyEmployee(classifyFullTime);
                     break;
                 case 4:
                     System.out.println("Danh sach cac nhan vien PartTime :");
-                    showPartTime();
+                    String classifyPartTime = "partTime";
+                    showClassifyEmployee(classifyPartTime);
                     break;
                 case 5:
                     System.out.println("Danh sach nhan vien dang lam :");
-                    showEmployeeDoing();
+                    String statusDoing = "dang lam";
+                    showEmployeeStatus(statusDoing);
                     break;
                 case 6:
                     System.out.println("Danh sach nhan vien da nghi :");
-                    showEmployeeNotDoing();
+                    String statusNotDoing = "da nghi";
+                    showEmployeeStatus(statusNotDoing);
                     break;
             }
         }
@@ -278,7 +268,7 @@ public class EmployeeView {
         if (index != -1) {
             Employee employee = binh.getEmployeeList().get(index);
             System.out.println(employee + "\n Luong thu nhap : " + employee.calculationSalary());
-            if (employee.getStatus() == null) {
+            if (employee.getStatus().equals("Chua nhan viec")) {
                 System.out.println("Ban dang la thanh vien moi, hay dang ky lam FullTime" +
                         " hoac PartTime voi quan ly \n");
             }
@@ -306,7 +296,7 @@ public class EmployeeView {
         String address = validate.checkEmpty();
         System.out.println("Nhap Phone Number : ");
         int phoneNumber = validate.inputInteger();
-        String status = null;
+        String status = "Chua nhan viec";
         String useName = checkInputUseName();
         System.out.println("Nhap password : ");
         int password = validate.inputInteger();
@@ -321,4 +311,5 @@ public class EmployeeView {
 
         binh.add(newMember());
     }
+
 }

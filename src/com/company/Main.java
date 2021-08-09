@@ -1,5 +1,6 @@
 package com.company;
 
+import controller.EmployeeManager;
 import model.Employee;
 import stogera.FileEmployee;
 import view.EmployeeView;
@@ -14,18 +15,23 @@ public class Main {
 //        ManagerAccountView m = new ManagerAccountView();
 //        System.out.println( m.newManagerAccount());
 
-        Scanner scanner = new Scanner(System.in);
-        int x = 0;
-         while (true){
-             System.out.println("Nhap x");
-              x = scanner.nextInt();
-             if (x!=-1){
-                 System.out.println("ok");
-                 break;
-             }else System.out.println("nhap lai x");
+//        Scanner scanner = new Scanner(System.in);
+//        int x = 0;
+//         while (true){
+//             System.out.println("Nhap x");
+//              x = scanner.nextInt();
+//             if (x!=-1){
+//                 System.out.println("ok");
+//                 break;
+//             }else System.out.println("nhap lai x");
+//
+//         }
+//        System.out.println("-------"+x);
 
-         }
-        System.out.println("-------"+x);
+//        EmployeeView e  = new EmployeeView();
+//
+//        e.showEmployeeDoing();
+//
 
 
 //        binh.add(new FullTime("name1", "id01", 18, "HN", 01,

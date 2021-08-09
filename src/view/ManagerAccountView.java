@@ -71,7 +71,8 @@ public class ManagerAccountView {
         for (Employee o : managerAccountList
         ) {
             if (o.getUseName().equals(useName) && o.getPassword() == password) {
-                System.out.println("Thong tin tai khoan : \n " + o);
+                System.out.println("Thong tin tai khoan :\n " + o +"" +
+                        "\nMuc luong thu nhap : "+o.calculationSalary());
             }
         }
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EmployeeManager {
     private String name;
-    private List<Employee> employeeList;
+    private List<Employee> employeeList = new ArrayList<>();
 
     public EmployeeManager() {
     }
@@ -106,20 +106,10 @@ public class EmployeeManager {
         return index;
     }
 
-    public List<Employee> EmployDoing() {
+    public List<Employee> getEmployeeStatus(String status) {
         List<Employee> employees = new ArrayList<>();
         for (int i = 0; i < employeeList.size(); i++) {
-            if ( employeeList.get(i).getStatus().equals("dang lam")) {
-                employees.add(employeeList.get(i));
-            }
-        }
-        return employees;
-    }
-
-    public List<Employee> EmployNotDoing() {
-        List<Employee> employees = new ArrayList<>();
-        for (int i = 0; i < employeeList.size(); i++) {
-            if ( employeeList.get(i).getStatus().equals("da nghi")) {
+            if ( employeeList.get(i).getStatus().equals(status)) {
                 employees.add(employeeList.get(i));
             }
         }
@@ -134,19 +124,19 @@ public class EmployeeManager {
         FileEmployee.writeFile(employeeList,"employee.txt");
     }
 
-    public List<Employee> classifyFullTime(){
-        List<Employee> fullTimes = new ArrayList<>();
-        for (int i = 0; i < employeeList.size(); i++) {
-            if (employeeList.get(i)instanceof FullTime) fullTimes.add(employeeList.get(i));
+    public List<Employee> getClassifyEmployee(String classifyEmployee){
+        List<Employee> classifyEmployees = new ArrayList<>();
+        if(classifyEmployee.equals("fullTime")){
+            for (int i = 0; i < employeeList.size(); i++) {
+                if (employeeList.get(i)instanceof FullTime) classifyEmployees.add(employeeList.get(i));
+            }
+            return classifyEmployees;
+        }else if(classifyEmployee.equals("partTime")){
+            for (int i = 0; i < employeeList.size(); i++) {
+                if (employeeList.get(i)instanceof PartTime) classifyEmployees.add(employeeList.get(i));
+            }
+            return classifyEmployees;
         }
-        return fullTimes;
-    }
-
-    public List<Employee> classifyPartTime(){
-        List<Employee> partTimes = new ArrayList<>();
-        for (int i = 0; i < employeeList.size(); i++) {
-            if (employeeList.get(i)instanceof PartTime) partTimes.add(employeeList.get(i));
-        }
-        return partTimes;
+        return null;
     }
 }

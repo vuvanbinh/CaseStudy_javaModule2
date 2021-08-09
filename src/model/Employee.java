@@ -103,27 +103,16 @@ public class Employee implements EmployeeInterface, Serializable {
 
     @Override
     public String toString() {
-       if(status == null){
-           return "Employee{" +
-                   "name: '" + name + '\'' +
-                   ", id: '" + id + '\'' +
-                   ", age: " + age +
-                   ", address: '" + address + '\'' +
-                   ", phoneNumber: " + phoneNumber +
-                   ", status: Chua nhan viec " +
-                   ", useName: '" + useName + '\'' +
-                   ", password: " + password +
-                   '}';
-       }else  return "Employee{" +
-               "name: '" + name + '\'' +
-               ", id: '" + id + '\'' +
-               ", age: " + age +
-               ", address: '" + address + '\'' +
-               ", phoneNumber: " + phoneNumber +
-               ", status: " + status +
-               ", useName: '" + useName + '\'' +
-               ", password: " + password +
-               '}';
+        return "Employee{" +
+                "name: '" + name + '\'' +
+                ", id: '" + id + '\'' +
+                ", age: " + age +
+                ", address: '" + address + '\'' +
+                ", phoneNumber: " + phoneNumber +
+                ", status: " + status +
+                ", useName: '" + useName + '\'' +
+                ", password: " + password +
+                '}';
     }
 
     @Override
